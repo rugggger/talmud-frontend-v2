@@ -53,6 +53,7 @@ i18n
           Combined: 'משולב',
           'Light mode': 'מצב תצוגה',
           'Public Comments': 'הערות ציבוריות',
+          'Comment Writer Name': 'שם כותב ההערה',
           'Personal Comments': 'הערות אישיות',
           'Required field': 'שדה חובה',
           'Comment content': 'תוכן ההערה',
@@ -67,7 +68,7 @@ i18n
           Logout: 'התנתק',
           Login: 'התחבר',
           Qiddushin: 'קידושין',
-          Resources: 'חומרי עזר',
+          Resources: 'משאבים',
           Manuscripts: 'כתבי יד',
           About: 'על אודות'
         },
