@@ -11,6 +11,7 @@ import ExcerptsView from './ExcerptsView';
 import { CommentModal, iCommentModal, setSelectedComment } from '../../store/actions/commentsActions';
 import CreateCommentModal from './CreateCommentModal';
 import { UserGroup } from '../../store/reducers/authReducer';
+import { useIsSticky } from '../../hooks/useIsSticky';
 
 const mapStateToProps = (state) => ({
   currentMishna: state.navigation.currentMishna,
@@ -83,14 +84,17 @@ const ExcerptsSection = (props: IProps) => {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
+  const isSticky = useIsSticky(wrapperRef, 136);
+  const divHeight = isSticky ? 'calc(100vh - 170px)' : 'calc(100vh - 270px)';
+
   return (
     <div
       style={{
         position: 'sticky',
         top: themeConstants.fixedTopPadding,
-        height: '98vh',
-        display: 'flex',
-        flexDirection: 'column',
+        height: divHeight,
+        transition: 'height 0.5s',
+        overflowY: 'auto',
       }}
       ref={wrapperRef}>
       <ExcerptDetailsView
