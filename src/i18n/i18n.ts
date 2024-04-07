@@ -68,7 +68,7 @@ i18n
           Logout: 'התנתק',
           Login: 'התחבר',
           Qiddushin: 'קידושין',
-          Resources: 'חומרי עזר',
+          Resources: 'משאבים',
           Manuscripts: 'כתבי יד',
           About: 'על אודות'
         },

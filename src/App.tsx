@@ -41,6 +41,7 @@ function App() {
         <Route path="/introduction" element={<IntroductionPage />} />
         <Route path="/qiddushin" element={<ContentPage id="5ul3ijbJSM9QUQYNgyIpMY" />} />
         <Route path="/manuscripts" element={<ContentPage id="5m3nEbtZvWUFaArO4Vz5Wo" />} />
+        <Route path="/about/technological-stack" element={<ContentPage id="7FvV82tq3C3r7pCPmDeSkg" />} />
         <Route path="/about" element={<ContentPage id="4MQcUAxH4Y9lei9RVlLrHe" />} />
         <Route path="/resources" element={<ContentPage id="01MW7qnvV1EIasMLVwrRdC" />} />
         <Route path="/steering" element={<SteeringPage />} />
