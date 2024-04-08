@@ -49,7 +49,7 @@ const PageWithNavigationWithoutState = (props: Props) => {
   };
 
   return (
-    <Container style={{ paddingBottom: '6rem' }}>
+    <Container style={{ paddingBottom: '3rem' }}>
       <Box mb={3}>
         <ChooseMishnaBar
           allChapterAllowed={allChapterAllowed}
