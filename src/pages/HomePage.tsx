@@ -137,7 +137,7 @@ const HomePage = (props) => {
               מסכת כתובות
             </Link>
             <Link
-              to="/talmud/qiddushin/001/001"
+              to="https://schechter.ac.il/book/talmud-yerushalmi-kidushin"
               style={{
                 background: '#c9c9c9',
                 display: 'grid',
