@@ -8,6 +8,7 @@ import { routeObject } from '../../../store/reducers/navigationReducer';
 import { iLink } from '../../../types/types';
 import { connect } from 'react-redux';
 import { setRoute } from '../../../store/actions/navigationActions';
+import SearchBar from './SearchBar';
 
 interface Props {
   allChapterAllowed?: boolean;
@@ -60,36 +61,39 @@ const ChooseMishnaBar = ({
   }, [tractate, chapter, mishna, line]);
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleNavigate(e);
-      }}>
-      <Grid container>
-        <Box sx={{ display: 'flex', flexGrow: 10 }}>
-          <ChooseMishnaForm
-            allChapterAllowed
-            keypressNavigation
-            onNavigationUpdated={(newNav) => {
-              setNavigation(newNav);
-            }}
-            onButtonNavigation={onButtonNavigation}
-            {...memoizedProps}
-          />
-        </Box>
-        <Box mb={2} sx={{ display: 'flex', flexGrow: 1 }}>
-          <Button
-            sx={{ width: '100%' }}
-            type="submit"
-            variant="contained"
-            color="primary"
-            onClick={handleNavigate}
-            disabled={selectButtonDisabled()}>
-            {t('Go')}
-          </Button>
-        </Box>
-      </Grid>
-    </form>
+    <>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleNavigate(e);
+        }}>
+        <Grid container>
+          <Box sx={{ display: 'flex', flexGrow: 10 }}>
+            <ChooseMishnaForm
+              allChapterAllowed
+              keypressNavigation
+              onNavigationUpdated={(newNav) => {
+                setNavigation(newNav);
+              }}
+              onButtonNavigation={onButtonNavigation}
+              {...memoizedProps}
+            />
+          </Box>
+          <Box mb={2} sx={{ display: 'flex', flexGrow: 1 }}>
+            <Button
+              sx={{ width: '100%' }}
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={handleNavigate}
+              disabled={selectButtonDisabled()}>
+              {t('Go')}
+            </Button>
+          </Box>
+        </Grid>
+      </form>
+      <SearchBar />
+    </>
   );
 };
 
