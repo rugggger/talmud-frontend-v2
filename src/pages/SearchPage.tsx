@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { searchText } from '../store/actions/searchActions';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -25,6 +25,7 @@ const SearchPage: FC<IProps> = () => {
   }, [dispatch, query]);
 
   const queryObject = base64ToJson(query);
+  const queryText = queryObject.text.trim();
 
   useEffect(() => {
     PageService.getAllTractates().then((tractates) => {
@@ -32,8 +33,24 @@ const SearchPage: FC<IProps> = () => {
     });
   }, []);
 
+  // Helper function to highlight text
+  const highlightText = (text: string) => {
+    const regex = new RegExp(`(${queryText})`, 'gi');
+    const parts = text.split(regex);
+
+    return parts.map((part, index) =>
+      regex.test(part) ? (
+        <span key={index} style={{ backgroundColor: 'yellow' }}>
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
-    <Box display="flex" gap={{ md: 2, xs: 5 }} p={5} flexDirection="column" alignItems="center">
+    <Box display="flex" gap={{ md: 1, xs: 1 }} flexDirection="column" alignItems="center" mb={8}>
       {searchResults.map((result, index) => {
         const [tractate, chapter, mishna] = result?.guid.split('_');
         return (
@@ -41,8 +58,7 @@ const SearchPage: FC<IProps> = () => {
             key={index}
             sx={{
               width: '80%',
-              p: 4,
-              mb: 4,
+              p: 3,
               cursor: 'pointer',
               borderRadius: 3,
               boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
@@ -52,29 +68,36 @@ const SearchPage: FC<IProps> = () => {
                 transform: 'scale(1.02)',
                 boxShadow: '0px 6px 25px rgba(0, 0, 0, 0.15)',
               },
+              position: 'relative',
+              overflow: 'unset',
             }}
             onClick={() => {
               navigate(`/talmud/${tractate}/${chapter}/${mishna}`);
             }}>
+            <Typography
+              sx={{
+                position: 'absolute',
+                top: 5,
+                right: 10,
+                fontWeight: 'bold',
+                fontSize: 16,
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -1,
+                  left: 0,
+                  width: '100%',
+                  height: 3,
+                  backgroundColor: ({ palette }) => palette.primary.main,
+                },
+              }}>
+              {index + 1}
+            </Typography>
             <Typography sx={{ fontSize: 18, mb: 2 }}>
               {allTractates.find((item) => item.id === tractate)?.title_heb}, {hebrewMap.get(chapter)},{' '}
               {hebrewMap.get(mishna)}
             </Typography>
-            <Typography>
-              {result?.mainLine.split(' ').map((word, index) => (
-                <Fragment key={index}>
-                  <span
-                    key={index}
-                    style={{
-                      backgroundColor: word.includes(queryObject.text) ? 'yellow' : 'transparent',
-                      fontSize: 17,
-                      lineHeight: 1.8,
-                    }}>
-                    {word}
-                  </span>{' '}
-                </Fragment>
-              ))}
-            </Typography>
+            <Typography sx={{ fontSize: 17, lineHeight: 1.8 }}>{highlightText(result?.mainLine)}</Typography>
           </Card>
         );
       })}
